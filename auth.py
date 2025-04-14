@@ -17,12 +17,12 @@ def hash_password(password: str, salt: bytes)-> str:
     return base64.urlsafe_b64encode(kdf.derive(password.encode())).decode()
 
 def set_up_master_password():
-    print('set up your Master Password')
+    print('set up your Master Password \n')
     password = getpass.getpass("Enter new Master Password: ")
-    confirm = getpass.getpass("Confirm your Master Password: ")
+    confirm = getpass.getpass("Confirm your Master Password: \n")
 
     if password != confirm:
-        print("Passwords do not match. Please try again!")
+        print("Passwords do not match. Please try again! \n")
         set_up_master_password()
 
     salt=generate_salt()
@@ -34,13 +34,13 @@ def set_up_master_password():
             "hash" : hashed
         }, f)
 
-    print("Master Password Set Up complete!")
+    print("Master Password Set Up complete! \n")
 
 
 
 def verify_master_password():
     if not os.path.exists(AUTH_FILE):
-        print("No master password set. Please set one up first")
+        print("No master password set. Please set one up first \n")
         set_up_master_password()
         return True
     
@@ -53,14 +53,14 @@ def verify_master_password():
 
     print("Login")
 
-    password = getpass.getpass("Enter Master Password: ")
+    password = getpass.getpass("Enter Master Password: \n")
     hashed_input = hash_password(password, salt)
 
     if hashed_input == stored_hash:
         print("Access granted!")
         return True
     else:
-        print("Incorrect password. Please try again")
+        print("Incorrect password. Please try again \n")
         return False
     
 
